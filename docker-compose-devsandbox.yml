@@ -22,6 +22,7 @@ services:
       - POSTGRES_POOL_SIZE=${POSTGRES_POOL_SIZE}
       - POSTGRES_IDLE=${POSTGRES_IDLE}
       - POSTGRES_BATCH_SIZE=${POSTGRES_BATCH_SIZE}
+      - EUREKA_URL=${EUREKA_URL}
     deploy:
       replicas: 1
       restart_policy:
@@ -53,6 +54,7 @@ services:
       - POSTGRES_POOL_SIZE=${POSTGRES_POOL_SIZE}
       - POSTGRES_IDLE=${POSTGRES_IDLE}
       - POSTGRES_BATCH_SIZE=${POSTGRES_BATCH_SIZE}
+      - EUREKA_URL=${EUREKA_URL}
     deploy:
       replicas: 1
       restart_policy:
