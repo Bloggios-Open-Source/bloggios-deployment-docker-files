@@ -23,6 +23,7 @@ services:
       - POSTGRES_IDLE=${POSTGRES_IDLE}
       - POSTGRES_BATCH_SIZE=${POSTGRES_BATCH_SIZE}
       - EUREKA_URL=${EUREKA_URL}
+      - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
     deploy:
       replicas: 1
       restart_policy:
@@ -55,6 +56,7 @@ services:
       - POSTGRES_IDLE=${POSTGRES_IDLE}
       - POSTGRES_BATCH_SIZE=${POSTGRES_BATCH_SIZE}
       - EUREKA_URL=${EUREKA_URL}
+      - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
     deploy:
       replicas: 1
       restart_policy:
@@ -114,6 +116,7 @@ services:
       - POSTGRES_HOST=${POSTGRES_HOST}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_USERNAME=${POSTGRES_USERNAME}
+      - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
     deploy:
       replicas: 1
       restart_policy:
