@@ -1,0 +1,109 @@
+version: '3.8'
+services:
+
+  auth-server:
+    image: auth-server:1
+    container_name: auth-server
+    environment:
+      - BLOGGIOS_MAIL_API_KEY=${BLOGGIOS_MAIL_API_KEY}
+      - BOOTSTRAP_SERVER=${BOOTSTRAP_SERVER}
+      - ES_PASSWORD=${ES_PASSWORD}
+      - ES_SERVER=${ES_SERVER}
+      - ES_USERNAME=${ES_USERNAME}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - POSTGRES_DATABASE=${POSTGRES_DATABASE}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USERNAME=${POSTGRES_USERNAME}
+      - BASE_URL=${BASE_URL}
+      - ACTIVE_PROFILE=${ACTIVE_PROFILE}
+      - EUREKA_CLIENT_ENABLED=true
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 4
+
+  auth-social-server:
+    image: auth-server:1.0
+    container_name: auth-social-server
+    ports:
+      - "8001:8001"
+    expose:
+      - "8001"
+    environment:
+      - BLOGGIOS_MAIL_API_KEY=${BLOGGIOS_MAIL_API_KEY}
+      - BOOTSTRAP_SERVER=${BOOTSTRAP_SERVER}
+      - ES_PASSWORD=${ES_PASSWORD}
+      - ES_SERVER=${ES_SERVER}
+      - ES_USERNAME=${ES_USERNAME}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - POSTGRES_DATABASE=${POSTGRES_DATABASE}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USERNAME=${POSTGRES_USERNAME}
+      - BASE_URL=${BASE_URL}
+      - ACTIVE_PROFILE=${ACTIVE_PROFILE}
+      - EUREKA_CLIENT_ENABLED=true
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 4
+
+  service-registry:
+    image: service-registry:1
+    container_name: service-registry
+    ports:
+      - "8761:8761"
+    expose:
+      - "8761"
+    environment:
+      - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+      - ACTIVE_PROFILE=${ACTIVE_PROFILE}
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 4
+
+  application-gateway:
+    image: application-gateway:1
+    container_name: application-gateway
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+    environment:
+      - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+      - EUREKA_CLIENT_ENABLED=true
+      - EUREKA_URL=${EUREKA_URL}
+      - SERVER_HOST=${SERVER_HOST}
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 4
+
+  bloggios-email-service:
+    image: bloggios-email-service:1.0
+    container_name: bloggios-email-service
+    environment:
+      - EUREKA_CLIENT_ENABLED=true
+      - EUREKA_URL=${EUREKA_URL}
+      - MAIL_HOST=${MAIL_HOST}
+      - MAIL_PORT=${MAIL_PORT}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - MAIL_USERNAME=${MAIL_USERNAME}
+      - ACTIVE_PROFILE=${ACTIVE_PROFILE}
+      - POSTGRES_POOL_SIZE=${POSTGRES_POOL_SIZE}
+      - POSTGRES_IDLE=${POSTGRES_IDLE}
+      - POSTGRES_BATCH_SIZE=${POSTGRES_BATCH_SIZE}
+      - BLOGGIOS_MAIL_API_KEY=${BLOGGIOS_MAIL_API_KEY}
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 4
