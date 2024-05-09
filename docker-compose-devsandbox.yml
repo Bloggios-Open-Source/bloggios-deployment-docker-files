@@ -83,9 +83,9 @@ services:
     image: bloggios-cloud-gateway:1
     container_name: bloggios-cloud-gateway
     ports:
-      - "8000:8000"
+      - "7000:7000"
     expose:
-      - "8000"
+      - "7000"
     environment:
       - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
       - EUREKA_CLIENT_ENABLED=true
