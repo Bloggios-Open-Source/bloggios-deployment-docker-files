@@ -24,6 +24,7 @@ services:
       - POSTGRES_BATCH_SIZE=${POSTGRES_BATCH_SIZE}
       - EUREKA_URL=${EUREKA_URL}
       - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+      - EUREKA_CLIENT_ENABLED=true
     deploy:
       replicas: 1
       restart_policy:
@@ -57,13 +58,14 @@ services:
       - POSTGRES_BATCH_SIZE=${POSTGRES_BATCH_SIZE}
       - EUREKA_URL=${EUREKA_URL}
       - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+      - EUREKA_CLIENT_ENABLED=true
     deploy:
       replicas: 1
       restart_policy:
         condition: on-failure
         max_attempts: 4
 
-  service-registry:
+  bloggios-service-registry:
     image: service-registry:1
     container_name: service-registry
     ports:
@@ -79,9 +81,9 @@ services:
         condition: on-failure
         max_attempts: 4
 
-  application-gateway:
-    image: application-gateway:1
-    container_name: application-gateway
+  bloggios-cloud-gateway:
+    image: bloggios-cloud-gateway:1
+    container_name: bloggios-cloud-gateway
     ports:
       - "8000:8000"
     expose:
