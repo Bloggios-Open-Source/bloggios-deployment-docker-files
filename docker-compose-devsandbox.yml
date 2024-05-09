@@ -29,7 +29,7 @@ services:
         max_attempts: 4
 
   auth-social-server:
-    image: auth-server:1.0
+    image: auth-server:1
     container_name: auth-social-server
     ports:
       - "8001:8001"
