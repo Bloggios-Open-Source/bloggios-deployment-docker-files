@@ -88,7 +88,7 @@ services:
         max_attempts: 4
 
   bloggios-email-service:
-    image: bloggios-email-service:1.0
+    image: bloggios-email-service:1
     container_name: bloggios-email-service
     environment:
       - EUREKA_CLIENT_ENABLED=true
